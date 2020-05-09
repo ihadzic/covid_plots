@@ -23,4 +23,4 @@ Try it for different states and make your own calls when they
 can/should open and if they have already opened whether they
 made the right call.
 
-I might add more data visualization as I have time.
+I might add more data visualization if I have time.
