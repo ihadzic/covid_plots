@@ -1,0 +1,4 @@
+The code in this repository is authored and copyrighted by
+Ilija Hadzic <ilijahadzic@gmail.com> and licensed under GPLv3 license.
+
+See https://www.gnu.org/licenses/quick-guide-gplv3.html for details.
