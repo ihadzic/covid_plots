@@ -2,6 +2,7 @@
 import requests
 import sys
 import numpy
+from matplotlib import pyplot
 
 mva_len = 7
 
@@ -21,7 +22,11 @@ if r.status_code == 200:
     # response and drop the tail of last mva_len elements
     new_positives_mva = numpy.convolve(new_positives, [1/mva_len]*mva_len)
     new_positives_mva = new_positives_mva[:-mva_len+1]
-    print(len(new_positives))
-    print(len(new_positives_mva))
+    pyplot.plot(new_positives, linewidth=1, color='black')
+    pyplot.plot(new_positives_mva, linewidth=2, color='red')
+    pyplot.xlabel('days')
+    pyplot.ylabel('cases')
+    pyplot.grid()
+    pyplot.show()
 else:
     print("API request failed {}".format(r.status_code))
