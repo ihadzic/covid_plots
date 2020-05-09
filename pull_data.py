@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 import requests
+import sys
 
-state="nj"
+if len(sys.argv) <= 1:
+    state="nj"
+else:
+    state=sys.argv[1]
 url="https://covidtracking.com/api/v1/states/" + state + "/daily.json"
 r=requests.get(url)
 if r.status_code == 200:
