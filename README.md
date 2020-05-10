@@ -3,8 +3,9 @@
 I got frustrated that there are so many sites with COVID data,
 but none shows them in a way that is easy to spot trends.
 
-So I hacked up my own script to pull the data from public
-API and visualize the data in a way that is meaningful
+So I hacked up my own script to pull the data from
+https://covidtracking.com/api
+and visualize the data in a way that is meaningful
 to me.
 
 To use the program you need Python 3 with numpy and matplotlib.
