@@ -21,7 +21,8 @@ for state in states:
     r= requests.get(url)
     if r.status_code == 200:
         daily=r.json()
-        positives=[ p.get("positive") for p in daily ]
+        raw_positives=[ p.get("positive") for p in daily ]
+        positives = [ p if p is not None else 0 for p in raw_positives ]
         if len(positives) > max_len:
             max_len = len(positives)
         all_positives.append(positives)
