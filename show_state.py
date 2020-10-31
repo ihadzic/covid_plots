@@ -18,7 +18,8 @@ if r.status_code == 200:
     positives = [ p if p is not None else 0 for p in raw_positives ]
     positives.append(0)
     positives.reverse()
-    new_positives = [ x - y for (x,y) in zip(positives[1:], positives[0:-1]) ]
+    new_positives_raw = [ x - y for (x,y) in zip(positives[1:], positives[0:-1]) ]
+    new_positives = [ x if x > 0 else 0 for x in new_positives_raw ]
     # moving average: implement as convolution with filters impulse
     # response and drop the tail of last mva_len elements
     new_positives_mva = numpy.convolve(new_positives, [1/mva_len]*mva_len)
