@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import requests
 import sys
-import numpy
 from matplotlib import pyplot
+import utils
 
 mva_len = 7
 
@@ -18,12 +18,7 @@ if r.status_code == 200:
     positives = [ p if p is not None else 0 for p in raw_positives ]
     positives.append(0)
     positives.reverse()
-    new_positives_raw = [ x - y for (x,y) in zip(positives[1:], positives[0:-1]) ]
-    new_positives = [ x if x > 0 else 0 for x in new_positives_raw ]
-    # moving average: implement as convolution with filters impulse
-    # response and drop the tail of last mva_len elements
-    new_positives_mva = numpy.convolve(new_positives, [1/mva_len]*mva_len)
-    new_positives_mva = new_positives_mva[:-mva_len+1]
+    new_positives, new_positives_mva = utils.process_positives(positives, mva_len)
     pyplot.plot(new_positives, linewidth=1, color='black')
     pyplot.plot(new_positives_mva, linewidth=2, color='red')
     pyplot.xlabel('days')

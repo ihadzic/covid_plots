@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import requests
 import sys
-import numpy
+import utils
 from matplotlib import pyplot
 
 mva_len = 7
@@ -34,13 +34,7 @@ for state in states:
 for positives in all_positives:
     padded_positives = positives + [ 0 ] * (1 + max_len - len(positives))
     padded_positives.reverse()
-    new_positives_raw = [ x - y for (x,y) in zip(padded_positives[1:],
-                                                 padded_positives[0:-1]) ]
-    new_positives = [ x if x > 0 else 0 for x in new_positives_raw ]
-    # moving average: implement as convolution with filters impulse
-    # response and drop the tail of last mva_len elements
-    new_positives_mva = numpy.convolve(new_positives, [1/mva_len]*mva_len)
-    new_positives_mva = new_positives_mva[:-mva_len+1]
+    _, new_positives_mva = utils.process_positives(padded_positives, mva_len)
     pyplot.plot(new_positives_mva, linewidth=2)
 
 pyplot.legend(lstates)
