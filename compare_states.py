@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 import requests
-import sys
+import argparse
 import utils
 from matplotlib import pyplot
 
 mva_len = 7
 
-if len(sys.argv) <= 2:
-    print("need at least two states")
-    exit(1)
-else:
-    states = sys.argv[1:]
+parser = argparse.ArgumentParser(description="Compare COVID trends for two or more states")
+parser.add_argument("state1", metavar="state", type=str, nargs=1, help="first state")
+parser.add_argument("state2", metavar="state", type=str, nargs="+", help="additional state(s)")
+args=parser.parse_args()
+args.states = args.state1 + args.state2
 
 lstates = []
 max_len = 0
 all_positives = []
 # first pass, store data locally and determine the longest data set
-for state in states:
+for state in args.states:
     url="https://covidtracking.com/api/v1/states/" + state + "/daily.json"
     r= requests.get(url)
     if r.status_code == 200:

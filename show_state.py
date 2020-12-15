@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 import requests
-import sys
+import argparse
 from matplotlib import pyplot
 import utils
 
 mva_len = 7
 
-if len(sys.argv) <= 1:
-    state="nj"
-else:
-    state=sys.argv[1]
-url="https://covidtracking.com/api/v1/states/" + state + "/daily.json"
+parser = argparse.ArgumentParser(description="Show COVID trend for a state")
+parser.add_argument("state", type=str, nargs="?", default="nj", help="state to analyze")
+args=parser.parse_args()
+
+url="https://covidtracking.com/api/v1/states/" + args.state + "/daily.json"
 r=requests.get(url)
 if r.status_code == 200:
     daily=r.json()
