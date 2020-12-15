@@ -26,7 +26,7 @@ Example:
 show_state.py nj
 ```
 
-Run `show_state.py --help' for additional options.
+Run `show_state.py --help` for additional options.
 
 Try it for different states and make your own calls when they
 can/should open and if they have already opened whether they
@@ -54,4 +54,4 @@ states to spot the regional trend or on any set of random
 states to tell whether one state made better decision than
 the other.
 
-Run `compare_states.py --help' for additional options.
+Run `compare_states.py --help` for additional options.
