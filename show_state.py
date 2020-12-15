@@ -23,3 +23,5 @@ if daily is not None:
     pyplot.ylabel('cases')
     pyplot.grid()
     pyplot.show()
+else:
+    print("cannot retrieve data for state {}".format(args.state))
