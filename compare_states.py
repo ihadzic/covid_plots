@@ -3,9 +3,12 @@ import argparse
 import utils
 from matplotlib import pyplot
 
-parser = argparse.ArgumentParser(description="Compare COVID trends for two or more states")
-parser.add_argument("state1", metavar="state", type=str, nargs=1, help="first state")
-parser.add_argument("state2", metavar="state", type=str, nargs="+", help="additional state(s)")
+parser = argparse.ArgumentParser(
+    description="Compare COVID trends for two or more states")
+parser.add_argument("state1", metavar="state", type=str, nargs=1,
+                    help="first state")
+parser.add_argument("state2", metavar="state", type=str, nargs="+",
+                    help="additional state(s)")
 parser.add_argument("--mva_len", type=int, default=7,
                     help="moving-avarage window length")
 args=parser.parse_args()

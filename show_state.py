@@ -4,7 +4,8 @@ import utils
 from matplotlib import pyplot
 
 parser = argparse.ArgumentParser(description="Show COVID trend for a state")
-parser.add_argument("state", type=str, nargs="?", default="nj", help="state to analyze")
+parser.add_argument("state", type=str, nargs="?", default="nj",
+                    help="state to analyze")
 parser.add_argument("--mva_len", type=int, default=7,
                     help="moving-avarage window length")
 args=parser.parse_args()
