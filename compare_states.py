@@ -3,11 +3,11 @@ import argparse
 import utils
 from matplotlib import pyplot
 
-mva_len = 7
-
 parser = argparse.ArgumentParser(description="Compare COVID trends for two or more states")
 parser.add_argument("state1", metavar="state", type=str, nargs=1, help="first state")
 parser.add_argument("state2", metavar="state", type=str, nargs="+", help="additional state(s)")
+parser.add_argument("--mva_len", type=int, default=7,
+                    help="moving-avarage window length")
 args=parser.parse_args()
 args.states = args.state1 + args.state2
 
@@ -32,7 +32,8 @@ for state in args.states:
 for positives in all_positives:
     padded_positives = positives + [ 0 ] * (1 + max_len - len(positives))
     padded_positives.reverse()
-    _, new_positives_mva = utils.process_positives(padded_positives, mva_len)
+    _, new_positives_mva = utils.process_positives(
+        padded_positives, args.mva_len)
     pyplot.plot(new_positives_mva, linewidth=2)
 
 pyplot.legend(lstates)
