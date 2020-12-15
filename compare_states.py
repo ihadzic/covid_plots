@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import requests
 import argparse
 import utils
 from matplotlib import pyplot
@@ -15,12 +14,11 @@ args.states = args.state1 + args.state2
 lstates = []
 max_len = 0
 all_positives = []
+
 # first pass, store data locally and determine the longest data set
 for state in args.states:
-    url="https://covidtracking.com/api/v1/states/" + state + "/daily.json"
-    r= requests.get(url)
-    if r.status_code == 200:
-        daily=r.json()
+    daily=utils.get_daily_data_for_state(state)
+    if daily is not None:
         raw_positives=[ p.get("positive") for p in daily ]
         positives = [ p if p is not None else 0 for p in raw_positives ]
         if len(positives) > max_len:
@@ -28,7 +26,7 @@ for state in args.states:
         all_positives.append(positives)
         lstates.append(state)
     else:
-        print("state {} skipped (API request failed)".format(state))
+        print("state {} skipped".format(state))
 
 # second pass, pad datasets to be aligned to the latest day
 for positives in all_positives:

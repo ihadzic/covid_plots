@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import numpy
+import requests
 
 def process_positives(positives, mva_len):
     """
@@ -16,3 +17,16 @@ def process_positives(positives, mva_len):
     new_positives_mva = numpy.convolve(new_positives, [1/mva_len]*mva_len)
     new_positives_mva = new_positives_mva[:-mva_len+1]
     return new_positives, new_positives_mva
+
+def get_daily_data_for_state(state):
+    """
+    retrieve data for state, return JSON if data were successfully
+    retrieved, return None in case of an error
+    """
+    url="https://covidtracking.com/api/v1/states/" + state + "/daily.json"
+    r=requests.get(url)
+    if r.status_code == 200:
+        return r.json()
+    else:
+        print("API request failed {}".format(r.status_code))
+        return None
