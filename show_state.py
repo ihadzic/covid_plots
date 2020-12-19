@@ -8,6 +8,8 @@ parser.add_argument("state", type=str, nargs="?", default="nj",
                     help="state to analyze")
 parser.add_argument("--mva_len", type=int, default=7,
                     help="moving-avarage window length")
+parser.add_argument("--no_mva_center", action="store_true",
+                    help="do not center moving average data")
 args=parser.parse_args()
 daily = utils.get_daily_data_for_state(args.state)
 if daily is not None:
@@ -18,7 +20,13 @@ if daily is not None:
     new_positives, new_positives_mva = utils.process_positives(
         positives, args.mva_len)
     pyplot.plot(new_positives, linewidth=1, color='black')
-    pyplot.plot(new_positives_mva, linewidth=2, color='red')
+    if args.no_mva_center:
+        pyplot.plot(new_positives_mva, linewidth=2, color='red')
+    else:
+        pyplot.plot(
+            [x - args.mva_len / 2 for x in range(len(new_positives_mva))],
+            new_positives_mva, linewidth=2, color='red'
+        )
     pyplot.xlabel('days')
     pyplot.ylabel('cases')
     pyplot.grid()
